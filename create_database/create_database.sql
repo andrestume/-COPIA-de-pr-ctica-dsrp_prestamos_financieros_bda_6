@@ -48,3 +48,26 @@ ADD CONSTRAINT check_tipo_persona CHECK (tipo_persona IN ('Persona Natural','Per
 
 SELECT*FROM clientes;
 INSERT INTO clientes VALUES('Persona Natural','1');
+
+--Creación de tabla sucursales
+CREATE TABLE sucursales(
+id INT PRIMARY KEY IDENTITY(1,1),
+codigo CHAR(6) NOT NULL,
+nombres VARCHAR(100) UNIQUE NOT NULL,
+direccion VARCHAR(255) NOT NULL
+);
+
+--Creación de tabla pagos
+CREATE TABLE pagos(
+id INT PRIMARY KEY IDENTITY(1,1),
+codigo_operacion VARCHAR(20) NOT NULL,
+fecha_pago DATETIME DEFAULT GETDATE() NOT NULL,
+monto_abonado MONEY NOT NULL
+);
+
+--Forma 1 para ingresar valores: campos específicos dentro de una tabla
+INSERT INTO pagos(codigo_operacion,monto_abonado) VALUES('0000000001',100.00)
+--Forma 2 para ingresar valores: completando todos los campos según la tabla
+INSERT INTO pagos VALUES('0000000002',DEFAULT,200.00)
+
+SELECT * FROM pagos
