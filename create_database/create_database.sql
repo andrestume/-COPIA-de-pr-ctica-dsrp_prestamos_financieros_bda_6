@@ -89,3 +89,49 @@ supervisor_id INT NULL,
 CONSTRAINT FK_persona_natural_empleados FOREIGN KEY (persona_id) REFERENCES personas_naturales(id),  --Se coloca el código FK_tabladereferencia_tabla actual y se hace REFERENCIA tablareferencia(camporeferencia)
 CONSTRAINT FK_supervisor_id FOREIGN KEY (supervisor_id) REFERENCES empleados(id)
 );
+
+--Creación de tabla prestamos (con dependencia)
+CREATE TABLE prestamos(
+id INT PRIMARY KEY IDENTITY (1,1),
+cliente_id INT NOT NULL,
+sucursal_id INT NOT NULL,
+empleado_id INT NOT NULL,
+tipo_prestamo_id INT NOT NULL,
+monto_otorgado MONEY NOT NULL,
+tasa_interes FLOAT NOT NULL,
+plazo INT NOT NULL,
+fecha_inicio DATE NOT NULL,
+fecha_vencimiento DATE NOT NULL,
+created_at DATETIME NOT NULL,
+updated_at DATETIME NOT NULL,
+deleted_at DATETIME NOT NULL,
+created_by INT NOT NULL,
+updated_by INT NOT NULL,
+deleted_by INT NOT NULL
+CONSTRAINT FK_clientes_prestamos FOREIGN KEY (cliente_id) REFERENCES clientes(id),
+CONSTRAINT FK_sucursales_prestamos FOREIGN KEY (sucursal_id) REFERENCES sucursales(id),
+CONSTRAINT FK_empleados_prestamos FOREIGN KEY (empleado_id) REFERENCES empleados(id),
+CONSTRAINT FK_tipos_prestamos_id FOREIGN KEY (tipo_prestamo_id) REFERENCES tipos_prestamos(id)
+);
+
+--Creación de tabla cuotas
+CREATE TABLE cuotas(
+id INT PRIMARY KEY IDENTITY (1,1),
+prestamo_id INT NOT NULL,
+numero_cuota INT NOT NULL,
+monto MONEY NOT NULL,
+fecha_vencimiento DATE NOT NULL,
+estado VARCHAR(20) NOT NULL,
+monto_pendiente MONEY NOT NULL
+CONSTRAINT FK_prestamos_cuotas FOREIGN KEY (prestamo_id) REFERENCES prestamos(id),
+);
+
+--Creación de tabla detalles_pagos
+CREATE TABLE detalles_pagos(
+id INT PRIMARY KEY IDENTITY(1,1),
+cuota_id INT NOT NULL,
+pago_id INT NOT NULL,
+monto_afectado MONEY NOT NULL,
+CONSTRAINT FK_cuotas_detalles_pagos FOREIGN KEY (cuota_id) REFERENCES cuotas(id),
+CONSTRAINT FK_pagos_detalles_pagos FOREIGN KEY (pago_id) REFERENCES pagos(id)
+);
