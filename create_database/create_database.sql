@@ -33,8 +33,18 @@ direccion VARCHAR(255) NOT NULL
 GO
 
 --Creación de tabla clientes
-CREATE TABLE cliente(
+CREATE TABLE clientes(
 id INT PRIMARY KEY IDENTITY(1,1),
-tipo_cliente VARCHAR(55) NOT NULL,
+tipo_persona VARCHAR(55) NOT NULL,
 persona_id INT NOT NULL
 );
+GO
+
+--Renombramos la columna tipo_cliente por tipo_persona. Debajo, la función usada:
+--EXEC sp_rename 'clientes.tipo_cliente','tipo_persona','COLUMN';
+
+ALTER TABLE clientes
+ADD CONSTRAINT check_tipo_persona CHECK (tipo_persona IN ('Persona Natural','Persona Jurídica'));
+
+SELECT*FROM clientes;
+INSERT INTO clientes VALUES('Persona Natural','1');
