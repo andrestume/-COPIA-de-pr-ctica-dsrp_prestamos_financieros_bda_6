@@ -71,3 +71,21 @@ INSERT INTO pagos(codigo_operacion,monto_abonado) VALUES('0000000001',100.00)
 INSERT INTO pagos VALUES('0000000002',DEFAULT,200.00)
 
 SELECT * FROM pagos
+
+--Creación de tabla tipos_prestamos
+CREATE TABLE tipos_prestamos(
+id INT PRIMARY KEY IDENTITY(1,1),
+nombre VARCHAR(100) NOT NULL,
+descripcion TEXT NULL --Si un campo puede ser NULL, se especifica y no hay necesidad de colocar cantidad de caracteres
+);
+
+--Creación de tabla empleados (con dependencia)
+CREATE TABLE empleados(
+id INT PRIMARY KEY IDENTITY(1,1),
+persona_id INT NOT NULL,
+codigo_empleado VARCHAR(6) NOT NULL,
+cargo VARCHAR(100) NOT NULL,
+supervisor_id INT NULL,
+CONSTRAINT FK_persona_natural_empleados FOREIGN KEY (persona_id) REFERENCES personas_naturales(id),  --Se coloca el código FK_tabladereferencia_tabla actual y se hace REFERENCIA tablareferencia(camporeferencia)
+CONSTRAINT FK_supervisor_id FOREIGN KEY (supervisor_id) REFERENCES empleados(id)
+);
