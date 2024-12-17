@@ -64,3 +64,15 @@ FROM dsrp_pf_05.dbo.personas_juridicas;
 
 
 -- Importar SUCURSALES desde otra base de datos
+SELECT * FROM sucursales
+
+SELECT * FROM dsrp_pf_05.dbo.sucursales
+
+ALTER TABLE sucursales
+ALTER COLUMN direccion NVARCHAR(500);
+
+ALTER TABLE sucursales
+ALTER COLUMN codigo NVARCHAR(20);
+
+ALTER TABLE sucursales
+ALTER COLUMN nombres VARCHAR(100);
