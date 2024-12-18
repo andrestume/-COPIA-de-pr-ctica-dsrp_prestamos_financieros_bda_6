@@ -10,3 +10,10 @@ SELECT
 FROM personas_naturales
 WHERE nombres='David'
 
+--Otro ejemplo: los JUAN
+SELECT
+	numero_documento AS 'DNI',
+	CONCAT(nombres,' ', apellido_paterno,' ', apellido_materno) AS 'Nombre Completo',
+	email
+FROM personas_naturales
+WHERE nombres='Juan'
