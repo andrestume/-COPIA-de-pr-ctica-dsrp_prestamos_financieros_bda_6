@@ -52,3 +52,30 @@ SELECT
 FROM personas_naturales
 WHERE apellido_paterno LIKE ('%s') AND apellido_materno LIKE ('%a')
 
+--Encontrar filas mediante un operador de comparación
+--Listar los clientes cuyo ID sea mayor a 90
+SELECT * FROM clientes
+WHERE id>90
+
+--Mayor o igual a 90
+SELECT * FROM clientes
+WHERE id>=90;
+
+--Menor a 90
+SELECT * FROM clientes
+WHERE ID<90;
+
+--Menor o igual a 90
+SELECT * FROM clientes
+WHERE ID<=90;
+
+--Clientes con ID entre 90 y 100 (incuidos)
+SELECT * FROM clientes
+WHERE ID>=90 AND id<=100;
+
+SELECT * FROM clientes
+WHERE id BETWEEN 90 AND 100;
+
+--Seleccionar todos los ID diferentes de 90
+SELECT * FROM clientes
+WHERE id != 90;
