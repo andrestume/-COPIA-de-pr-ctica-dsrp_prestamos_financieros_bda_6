@@ -76,3 +76,39 @@ ALTER COLUMN codigo NVARCHAR(20);
 
 ALTER TABLE sucursales
 ALTER COLUMN nombres VARCHAR(100);
+
+
+-- Tipos de préstamos
+SELECT * FROM tipos_prestamos
+
+INSERT INTO tipos_prestamos VALUES('Préstamo Personal',''),
+('Préstamo Hipotecario',''),
+('Préstamo Personal','');
+
+-- Empleados(Insertar data a partir de otra consulta)
+SELECT*FROM personas_naturales;
+INSERT INTO [dbo].[personas_naturales] ([numero_documento], [nombres], [apellido_paterno], [apellido_materno], [email], [celular], [direccion])
+VALUES
+('67890135', 'Andrea', 'Mendoza', 'Rojas', 'andrea.mendoza@example.com', '987654370', 'Calle Jardines 456'),
+('78901246', 'Miguel', 'Castro', 'Vega', 'miguel.castro@example.com', '987654371', 'Av. Valle 789'),
+('89012357', 'Lorena', 'Vargas', 'Ramírez', 'lorena.vargas@example.com', '987654372', 'Calle Palmeras 123'),
+('90123468', 'Diego', 'Morales', 'Torres', 'diego.morales@example.com', '987654373', 'Plaza Central 890'),
+('12334579', 'Cecilia', 'Ramos', 'Pérez', 'cecilia.ramos@example.com', '987654374', 'Av. del Bosque 345'),
+('23445690', 'Jorge', 'Figueroa', 'Gómez', 'jorge.figueroa@example.com', '987654375', 'Calle Horizonte 567'),
+('34556791', 'Santiago', 'Delgado', 'López', 'santiago.delgado@example.com', '987654376', 'Calle Maravilla 678'),
+('45667892', 'Paula', 'Silva', 'Fernández', 'paula.silva@example.com', '987654377', 'Av. del Este 789'),
+('56778903', 'Natalia', 'Rivera', 'Martínez', 'natalia.rivera@example.com', '987654378', 'Calle Armonía 910'),
+('67889024', 'Fabio', 'Paredes', 'Suárez', 'fabio.paredes@example.com', '987654379', 'Plaza Unión 1011');
+
+
+SELECT * FROM empleados
+
+EXEC sp_help empleados;
+
+INSERT INTO empleados
+SELECT id,
+CONCAT(SUBSTRING(apellido_paterno,1,1),SUBSTRING(apellido_materno,1,1),00,ROUND(RAND()*10,0)) AS 'codigo_empleado',
+'supervisor' AS 'cargo',
+NULL AS 'supervisor_id'
+FROM personas_naturales 
+WHERE id>=50;
