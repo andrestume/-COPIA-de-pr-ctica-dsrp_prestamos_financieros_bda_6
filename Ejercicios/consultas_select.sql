@@ -79,3 +79,36 @@ WHERE id BETWEEN 90 AND 100;
 --Seleccionar todos los ID diferentes de 90
 SELECT * FROM clientes
 WHERE id != 90;
+
+--Encontrar filas que cumplan con cualquiera de las 3 condiciones
+--	ID sea 1
+--	Teléfono sea 1857687
+--	Dirección sea una avenida
+SELECT * FROM personas_juridicas
+WHERE id=1 OR telefono=32165894 OR direccion LIKE 'Av%';
+
+--Encontrar filas que deban cumplir varias condiciones
+--	Código sea mayor a 654789123
+--	Que en su nombre tenga la palabra 'sucursal'
+--	Que su dirección no sea avenida
+SELECT * FROM sucursales
+WHERE
+	codigo>654789123 AND
+	nombres LIKE '%sucursal%' AND
+	direccion NOT LIKE 'Av%';
+
+SELECT * FROM sucursales
+WHERE
+	codigo>654789123 AND
+	nombres LIKE '%sucursal%' AND
+	direccion NOT LIKE 'Av%' AND
+	(id>13 OR id<20); -- la condición varía con el uso de paréntesis
+
+--Encontrar filas que estén en una lista de valores
+SELECT * FROM personas_naturales
+WHERE numero_documento IN ('67890123','78901234','89012345','90123456','12323456');
+
+--Encontrar filas que NO estén en una lista de valores
+SELECT * FROM personas_naturales
+WHERE numero_documento NOT IN ('67890123','78901234','89012345','90123456','12323456');
+
