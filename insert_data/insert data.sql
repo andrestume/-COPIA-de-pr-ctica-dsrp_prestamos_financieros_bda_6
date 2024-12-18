@@ -112,3 +112,22 @@ CONCAT(SUBSTRING(apellido_paterno,1,1),SUBSTRING(apellido_materno,1,1),00,ROUND(
 NULL AS 'supervisor_id'
 FROM personas_naturales 
 WHERE id>=50;
+
+
+-- Clientes
+SELECT*FROM clientes
+
+--- DELETE FROM clientes; -- Eliminamos los registros para volver a crearlos.
+
+--- DBCC CHECKIDENT ('clientes', RESEED, 62); ---reiniciamos el conteo para estar igual que la clase
+
+INSERT INTO clientes
+SELECT 'Persona Jurídica', id
+FROM personas_juridicas
+
+INSERT INTO clientes   --- Ingresamos los registros de personas naturales
+SELECT 'Persona Natural', id
+FROM personas_naturales
+WHERE id<=49;
+
+SELECT*FROM clientes

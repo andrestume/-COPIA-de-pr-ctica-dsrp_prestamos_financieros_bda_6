@@ -46,6 +46,10 @@ GO
 ALTER TABLE clientes
 ADD CONSTRAINT check_tipo_persona CHECK (tipo_persona IN ('Persona Natural','Persona Jurídica'));
 
+--- DELETE FROM clientes   --- Identifiqué que el primer ID designado en la tabla clientes era 2, por lo que eliminé la información y reinicié el contador.
+--- DBCC CHECKIDENT ('clientes', RESEED, 0);
+
+
 SELECT*FROM clientes;
 INSERT INTO clientes VALUES('Persona Natural','1');
 
