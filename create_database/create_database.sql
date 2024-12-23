@@ -83,6 +83,8 @@ nombre VARCHAR(100) NOT NULL,
 descripcion TEXT NULL --Si un campo puede ser NULL, se especifica y no hay necesidad de colocar cantidad de caracteres
 );
 
+EXEC sp_rename 'tipos_prestamos', 'tipos_prestamo'; --se cambió el nombre de la tabla para que vaya de acuerdo al trabajo
+
 --Creación de tabla empleados (con dependencia)
 CREATE TABLE empleados(
 id INT PRIMARY KEY IDENTITY(1,1),
@@ -93,6 +95,13 @@ supervisor_id INT NULL,
 CONSTRAINT FK_persona_natural_empleados FOREIGN KEY (persona_id) REFERENCES personas_naturales(id),  --Se coloca el código FK_tabladereferencia_tabla actual y se hace REFERENCIA tablareferencia(camporeferencia)
 CONSTRAINT FK_supervisor_id FOREIGN KEY (supervisor_id) REFERENCES empleados(id)
 );
+
+
+ALTER TABLE empleados --agregar la columna de referencia a sucursale
+	ADD sucursal_id INT
+
+ALTER TABLE empleados --referencia la FK a su PK
+ADD CONSTRAINT fk_sucursal_empleados FOREIGN KEY (sucursal_id) REFERENCES sucursales(id);
 
 --Creación de tabla prestamos (con dependencia)
 CREATE TABLE prestamos(
@@ -117,6 +126,9 @@ CONSTRAINT FK_sucursales_prestamos FOREIGN KEY (sucursal_id) REFERENCES sucursal
 CONSTRAINT FK_empleados_prestamos FOREIGN KEY (empleado_id) REFERENCES empleados(id),
 CONSTRAINT FK_tipos_prestamos_id FOREIGN KEY (tipo_prestamo_id) REFERENCES tipos_prestamos(id)
 );
+
+ALTER TABLE prestamos --modificación para que calce con los registros que se van a ingresar
+ALTER COLUMN fecha_vencimiento DATETIME NULL;
 
 --Creación de tabla cuotas
 CREATE TABLE cuotas(
